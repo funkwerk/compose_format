@@ -42,7 +42,7 @@ class ComposeFormat:
         'interval', 'timeout', 'retries',
         'disable',
     ]
-    BUILD_ORDER = ['context', 'dockerfile', 'args']
+    BUILD_ORDER = ['context', 'dockerfile', 'args', 'cache_from', 'labels', 'shm_size', 'target']
 
     ORDERS = {
         'version': TOPLEVEL_ORDER,
