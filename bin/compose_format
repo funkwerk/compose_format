@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from compose_format import ComposeFormat
 
-
 if __name__ == '__main__':
 
     import argparse

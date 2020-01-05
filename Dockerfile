@@ -1,16 +1,20 @@
-FROM alpine:3.3
+FROM alpine:3.11
 MAINTAINER think@hotmail.de
 
+ENV PYTHONUNBUFFERED=1
+
 RUN \
-  apk add --no-cache python3 && \
-  apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
-  wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3 && \
-  apk del build-dependencies
+    apk add --no-cache python3 && \
+    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --no-cache --upgrade pip setuptools wheel && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
 
 RUN pip install --no-cache-dir ruamel.yaml
 
 COPY bin /bin
-COPY compose_format /usr/lib/python3.5/site-packages/compose_format
+COPY compose_format /usr/lib/python3.8/site-packages/compose_format
 
 RUN chmod +x /bin/compose_format
 

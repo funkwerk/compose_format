@@ -5,3 +5,5 @@
 build
 tmp
 README.rst
+/venv/
+.idea
